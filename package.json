@@ -1,6 +1,7 @@
 {
   "name": "apv-backend",
   "version": "1.0.0",
+  "type": "module",
   "description": "Aplicacion fullstack con MERN",
   "main": "index.js",
   "scripts": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Dan10vaz/apvMERN/issues"
   },
-  "homepage": "https://github.com/Dan10vaz/apvMERN#readme"
+  "homepage": "https://github.com/Dan10vaz/apvMERN#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
