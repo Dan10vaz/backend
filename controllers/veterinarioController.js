@@ -1,15 +1,15 @@
 import Veterinario from "../models/Veterinario.js";
 
 const registrar = async (req, res) => {
-  const {email} = req.body;
+  const { email } = req.body;
 
   //Prevenir usuarios duplicados
-    const existeUsuario = await Veterinario.findOne({email});
+  const existeUsuario = await Veterinario.findOne({ email });
 
-    if(existeUsuario) {
-      const error = new Error('Usuario ya registrado');
-      return res.status(400).json({msg: error.message});
-    }
+  if (existeUsuario) {
+    const error = new Error("Usuario ya registrado");
+    return res.status(400).json({ msg: error.message });
+  }
 
   try {
     //Guardar un Nuevo Veterinario
@@ -26,9 +26,25 @@ const perfil = (req, res) => {
   res.json({ msg: "Mostrando perfil" });
 };
 
-const confirmar = (req, res) => {
-  console.log(req.params.token);
-  res.json({msg: "Confirmando cuenta..."});
+const confirmar = async (req, res) => {
+  const { token } = req.params;
+  const usuarioConfirmar = await Veterinario.findOne({ token });
+  if (!usuarioConfirmar) {
+    const error = new Error("Token no valido");
+    return res.status(404).json({ msg: error.message });
+  }
+
+  try {
+    usuarioConfirmar.token = null;
+    usuarioConfirmar.confirmado = true;
+    await usuarioConfirmar.save();
+    
+    res.json({ msg: "Usuario Confirmado Correctamente" });
+  } catch (error) {
+    console.log(`El error es: ${error}`);
+  }
+
+  console.log(usuarioConfirmar);
 };
 
-export { registrar, perfil, confirmar};
+export { registrar, perfil, confirmar };
