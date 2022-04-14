@@ -1,10 +1,16 @@
 import express from 'express';
-import { registrar, perfil, confirmar, autenticar} from '../controllers/veterinarioController.js';
 const router = express.Router();
+import { registrar, perfil, confirmar, autenticar} from '../controllers/veterinarioController.js';
+import checkAuth from '../middleware/authMiddleware.js';
 
+
+//Rutas para el area publica no se requiere cuenta para entrar
 router.post('/', registrar);
-router.get('/perfil', perfil);
 router.get('/confirmar/:token', confirmar);
 router.post('/login', autenticar);
+
+
+router.get('/perfil', checkAuth, perfil);
+
 
 export default router;

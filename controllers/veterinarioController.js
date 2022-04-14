@@ -35,7 +35,6 @@ const confirmar = async (req, res) => {
     const error = new Error("Token no valido");
     return res.status(404).json({ msg: error.message });
   }
-
   try {
     usuarioConfirmar.token = null;
     usuarioConfirmar.confirmado = true;
@@ -45,8 +44,6 @@ const confirmar = async (req, res) => {
   } catch (error) {
     console.log(`El error es: ${error}`);
   }
-
-  console.log(usuarioConfirmar);
 };
 
 //Autenticar a los usuarios "LOGIN"
@@ -68,11 +65,11 @@ const autenticar = async (req, res) => {
   //Revisar el password
   if(await usuario.comprobarPassword(password)){
     //Autenticar 
-    res.json({token: generarJWT(usuario.id)})
+    res.json({token: generarJWT(usuario.id)});
 
   } else {
     const error = new Error("El password es incorrecto");
-    return res.status(403).json({msg: error.message})
+    return res.status(403).json({msg: error.message});
   }
 };
 
