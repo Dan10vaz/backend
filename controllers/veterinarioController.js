@@ -53,15 +53,16 @@ const autenticar = async (req, res) => {
   const {email} = req.body; //con esta podemos acceder a lo que el usuario coloque en un formulario 
   // Comprobar si el usuario existe
   const usuario = await Veterinario.findOne({email});
-
   if (!usuario) {
     const error = new Error("El usuario no existe");
-    return res.status(403).json({ msg: error.message });
-  }else {
-    res.status(403).json({msg: "El usuario no existe"});
-  }
+    return res.status(404).json({ msg: error.message });
+  };
 
-  
+  //Comprobar si el usuario esta confirmado o no 
+  if(!usuario.confirmado) {
+    const error = new Error("Tu cuenta no ha sido confirmada");
+    return res.status(403).json({msg: error.message})
+  }
 };
 
 
