@@ -25,7 +25,6 @@ const checkAuth = async (req, res, next) => {
         res.status(403).json({msg: error.message});
     }
     
-
     next();
 };
 
