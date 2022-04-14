@@ -74,7 +74,9 @@ const autenticar = async (req, res) => {
 };
 
 const olvidePassword = (req, res) => {
+  const {email} = req.body
 
+  console.log(email);
 };
 
 const comprobarToken = (req, res) => {
